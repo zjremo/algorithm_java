@@ -14,6 +14,8 @@ class Solution {
 
     // 方法二: 环状替换
     public void rotate1(int[] nums, int k) {
+        // an = kb = lcm(n, k) -> b = lcm(n, k)/k 一次遍历b个元素
+        // 一共需要多少次遍历呢? -> n/b = nk/lcm(n,k) = gcd(n, k)
         int l = 0, n = nums.length;
         k %= n;
         int cnt = gcd(k, n);
