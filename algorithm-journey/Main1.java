@@ -1,6 +1,8 @@
 public class Soluton{
     //  Method1 : 快速地交换两个数 使用位运算
     public static void swap(int[] arr, int i, int j){
+        if (i == j)
+            return;
         arr[i] ^= arr[j];
         arr[j] ^= arr[i];
         arr[i] ^= arr[j];
@@ -127,16 +129,16 @@ public class Soluton{
         int i = 0; // 辅助数组index
         int p1 = left, p2 = mid + 1;
         while (p1 <= mid && p2 <= right){
-            helper[i++] = arr[p1] < arr[p2] ? arr[p1++]:arr[p2++];
+            helper[i++] = arr[p1] <= arr[p2] ? arr[p1++]:arr[p2++];
         }
 
         // 完成剩余的合并
         while (p1 <= mid){
-            helper[i++] = arr[p1];
+            helper[i++] = arr[p1++];
         }
 
-        while (p2 <= mid){
-            helper[i++] = arr[p2];
+        while (p2 <= right){
+            helper[i++] = arr[p2++];
         }
 
         // copy
