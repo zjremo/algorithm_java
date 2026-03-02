@@ -9,7 +9,7 @@ public class Soluton{
     }
 
     // Method2 : 取出一个数最右边1的位置
-    public int getMostRightOne(int pos){
+    public static int getMostRightOne(int pos){
         return pos & (~pos + 1);
     }
 
