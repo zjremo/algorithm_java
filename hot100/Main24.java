@@ -10,6 +10,7 @@
  */
 class Solution {
     // 两两交换链表中的节点
+    // 方法1
     public ListNode swapPairs(ListNode head) {
         if (head == null)
             return null;
@@ -32,4 +33,40 @@ class Solution {
         }
         return prev_head.next;
     }
+
+    // 方法2
+    public ListNode swapPairs2(ListNode head) {
+        if (head == null)
+            return null;
+
+        // 长度为1
+        if (head.next == null)
+            return head;
+
+        // 长度≥2
+        ListNode f = head.next, s = head, prev = null, prev_head = null;
+
+        while (f != null) {
+            ListNode tmp = f.next;
+            f.next = s;
+            s.next = null;
+
+            if (prev_head == null) {
+                prev_head = f;
+            } else{
+                prev.next = f;
+            }
+
+            // update pointer
+            prev = s;
+            f = tmp == null ? null : tmp.next;
+            s = tmp;
+        }
+
+        if (s != null)
+            prev.next = s;
+        return prev_head;
+    }
+
+
 }
