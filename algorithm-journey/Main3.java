@@ -34,6 +34,7 @@ class Solution{
     }
 
     // 后序遍历 一个栈实现
+    // 用栈的后序遍历可以寻找到达一个节点的具体路径
     public void postorderTraversal(TreeNode root){
         Deque<TreeNode> q = new ArrayDeque<>();
         TreeNode node = root;
