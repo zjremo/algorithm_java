@@ -14,7 +14,9 @@ class Solution {
             return ;
         }
 
+        // 尝试所有可选元素
         for (int i = 0; i < nums.length; ++i){
+            // 进行剪枝操作，需要满足要求
             if (!flags[i]){
                 flags[i] = true;
                 temp.add(nums[i]);
