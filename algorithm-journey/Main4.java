@@ -255,8 +255,39 @@ class Solution {
     }
 
     // 2. 不借助哈希表
-    // public static Node copyListWithRand2(Node head){
-    //
-    //     return null;
-    // }
+    public static Node copyListWithRand2(Node head){
+        if (head == null)
+            return null;
+        Node p = head, next = null;
+        // 先在每一个节点后面跟一个新创的copy节点
+        while(p != null){
+            next = p.next;
+            Node tmp = new Node(p.val);
+            p.next = tmp;
+            tmp.next = next;
+            p = next;
+        }
+
+        // 开始串联, 完成random指针的指向
+        p = head;
+        Node curCopy = null;
+        while (p != null){
+            next = p.next.next;
+            curCopy = p.next;
+            curCopy.random = p.random != null? p.random.next : null;
+            p = next;
+        }
+
+        // split two list
+        Node res = head.next;
+        p = head;
+        while (p != null){
+            next = p.next.next;
+            curCopy = p.next;
+            p.next = next;
+            curCopy.next = next != null ? next.next : null;
+            p = next;
+        }
+        return res;
+    }
 }
