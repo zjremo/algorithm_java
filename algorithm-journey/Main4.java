@@ -290,4 +290,56 @@ class Solution {
         }
         return res;
     }
+
+    //Method8: 删除链表的倒数第N个节点
+    public Node removeNthFromEnd(Node head, int n){
+        if (head == null){
+            return null;
+        }
+
+        if (head.next == null && n == 1){
+            return null;
+        }
+
+        Node prev_head = new Node();
+        Node f = head, s = prev_head;
+
+        // f先走n步
+        for (int i = 0; i < n; ++i){
+            f = f.next;
+        }
+
+        while(f != null){
+            s = s.next;
+            f = f.next;
+        }
+
+        Node next = s.next.next;
+        s.next.next = null;
+        s.next = next;
+        return prev_head.next;
+    }
+
+    //Method9: 找到链表的第一个入环节点，如果无环，返回null
+    public Node getLoopNode(Node head){
+        if (head == null || head.next == null || head.next.next == null)
+            return null;
+
+        Node n1 = head.next;
+        Node n2 = head.next.next;
+
+        while(n1 != n2){
+            if (n2.next == null || n2.next.next == null){
+                return null;
+            }
+            n2 = n2.next.next;
+            n1 = n1.next;
+        }
+        n2 = head;
+        while(n1 != n2){
+            n1 = n1.next;
+            n2 = n2.next;
+        }
+        return n1;
+    }
 }

@@ -59,4 +59,22 @@ class Solution {
 
         return true;
     }
+
+    // 方法二: 向下递归，左子树左对右子树右，左子树右对右子树左
+    public boolean dfs(TreeNode leftRoot, TreeNode rightRoot){
+        if (leftRoot == null && rightRoot == null)
+            return true;
+
+        if (leftRoot == null || rightRoot == null)
+            return false;
+
+        return dfs(leftRoot.left, rightRoot.right) && dfs(leftRoot.right, rightRoot.left) && leftRoot.val == rightRoot.val;
+    }
+
+    public boolean isSymmetric2(TreeNode root){
+        if (root == null)
+            return true;
+        return dfs(root.left, root.right);
+    }
+
 }
