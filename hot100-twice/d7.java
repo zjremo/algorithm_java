@@ -164,4 +164,85 @@ class Solution{
         }
         return dp[n - 1];
     }
+
+    public int lengthOfLIS(int[] nums) {
+        int n = nums.length;
+        
+        int[] dp = new int[n];
+        dp[0] = 1;
+
+        int max = 1;
+        for (int i = 1; i < n; ++i){
+            int tmp = 0;
+            for (int j = 0; j < i; ++j){
+                if (nums[i] > nums[j]){
+                    tmp = Math.max(tmp, dp[j]);
+                }
+            }
+            dp[i] = tmp + 1;
+            max = Math.max(dp[i], max);
+        }
+        return max;
+    }
+
+    public int maxProduct(int[] nums) {
+        int n = nums.length;
+
+        // two dp Array
+        int[] maxdp = new int[n];
+        int[] mindp = new int[n];
+
+        maxdp[0] = nums[0];
+        mindp[0] = nums[0];
+
+        int max = maxdp[0];
+        for (int i = 1; i < n; ++i){
+            // 当前元素如果为负 -> max变min min变max
+            if (nums[i] < 0){
+                maxdp[i] = Math.max(mindp[i - 1] * nums[i], nums[i]);
+                mindp[i] = Math.min(maxdp[i - 1] * nums[i], nums[i]);
+            } else{
+                maxdp[i] = Math.max(maxdp[i - 1] * nums[i], nums[i]);
+                mindp[i] = Math.min(mindp[i - 1] * nums[i], nums[i]);
+            }
+            max = Math.max(maxdp[i], max);
+        }
+        return max;
+    }
+
+    public boolean canPartition(int[] nums) {
+        // 数组长度为偶数，整体的和要为偶数
+        int n = nums.length;
+
+        Arrays.sort(nums); 
+        int sum = IntStream.of(nums).sum();
+
+        if (sum % 2 != 0)
+            return false;
+
+        int target = sum / 2;
+
+        // dp[i][j] = dp[i - 1][j] || dp[i - 1][j - nums[i]]
+        boolean[][] dp = new boolean[n][target + 1];
+        for (int i = 0; i < n; ++i){
+            dp[i][0] = true;
+        }
+
+        if (nums[0] <= target)
+            dp[0][nums[0]] = true; // 就它自身
+        if (nums[0] == target)
+            return true;
+        for (int i = 1; i < n; ++i){
+            for (int j = 1; j <= target; ++j){
+                boolean tmp = false;
+                tmp = tmp || dp[i - 1][j];
+                tmp = j >= nums[i] ? tmp || dp[i - 1][j - nums[i]]:tmp;
+                if (j == target && tmp){
+                    return true;
+                }
+                dp[i][j] = tmp;
+            }
+        }
+        return false;
+    }
 }
