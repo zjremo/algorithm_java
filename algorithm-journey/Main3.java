@@ -9,16 +9,16 @@ class Solution{
     }
     // 前序遍历 栈实现
     public void preorderTraversal(TreeNode root){
-        Queue<TreeNode> q = new LinkedList<>();
+        Deque<TreeNode> s = new ArrayDeque<>();
         TreeNode node = root;
-        while (!q.isEmpty() || node != null) {
+        while (!s.isEmpty() || node != null) {
             while (node != null) {
                 System.out.println(node.val);
-                q.offer(node);
+                s.push(node);
                 node = node.left;
             }
 
-            node = q.poll();
+            node = s.pop();
             node = node.right;
         }
     }
@@ -34,16 +34,16 @@ class Solution{
 
     // 中序遍历 栈实现
     public void inorderTraversal(TreeNode root){
-        Queue<TreeNode> q = new LinkedList<>();
+        Deque<TreeNode> s = new ArrayDeque<>();
         TreeNode node = root;
 
-        while (!q.isEmpty() || node != null) {
+        while (!s.isEmpty() || node != null) {
             while (node != null) {
-                q.offer(node);
+                s.offer(node);
                 node = node.left;
             }
 
-            node = q.poll();
+            node = s.poll();
             System.out.println(node.val);
             node = node.right;
         }
