@@ -39,11 +39,11 @@ class Solution{
 
         while (!s.isEmpty() || node != null) {
             while (node != null) {
-                s.offer(node);
+                s.push(node);
                 node = node.left;
             }
 
-            node = s.poll();
+            node = s.pop();
             System.out.println(node.val);
             node = node.right;
         }
@@ -83,7 +83,7 @@ class Solution{
                 // 右子树并没有被访问
                 node = peek.right;
             }
-            
+
         }
     } 
 
